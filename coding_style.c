@@ -1,28 +1,27 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
-#include <asm/delay.h>
+#include <linux/delay.h>
 #include <linux/slab.h>
 
-int do_work( int * my_int, int retval ) {
+int do_work(int *my_int, int retval)
+{
 	int x;
-	int y=*my_int;
+	int y = *my_int;
 	int z;
-	
-	for(x=0;x< * my_int;++x) {
-		udelay(10);
-	}
 
-	if (y < 10 )
+	for (x = 0; x < *my_int; ++x)
+		udelay(10);
+
+	if (y < 10)
 		// That was a long sleep, tell userspace about it
-		printk("We slept a long time!");
+		printk(KERN_FACILITY "We slept a long time!");
 
 	z = x * y;
 
 	return z;
 }
 
-int
-my_init (void)
+int my_init(void)
 {
 	int x = 10;
 
@@ -31,7 +30,7 @@ my_init (void)
 	return x;
 }
 
-void my_exit( void )
+void my_exit(void)
 {
 	return;
 }
